@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'app_colors.dart';
+import 'app_colors_extension.dart';
 
 class AppTheme {
   static ThemeData get lightTheme => ThemeData(
@@ -74,7 +75,7 @@ class AppTheme {
   );
 
   // Custom Theme Extensions
-  static final _lightAppColors = _AppThemeColors(
+  static final _lightAppColors = AppThemeColors(
     neonAccent: AppColors.accentNeonPurple,
     glowEffect: AppColors.glowEffect,
     gradientPrimary: AppColors.primaryGradient,
@@ -83,7 +84,7 @@ class AppTheme {
     textSecondary: AppColors.lightTextSecondary,
   );
 
-  static final _darkAppColors = _AppThemeColors(
+  static final _darkAppColors = AppThemeColors(
     neonAccent: AppColors.accentNeonPurple,
     glowEffect: AppColors.glowEffect,
     gradientPrimary: AppColors.primaryGradient,
@@ -280,8 +281,8 @@ class AppTheme {
       );
 
   // Helper to get custom colors from context
-  static _AppThemeColors appColors(BuildContext context) =>
-      Theme.of(context).extension<_AppThemeColors>()!;
+  static AppThemeColors appColors(BuildContext context) =>
+      Theme.of(context).extension<AppThemeColors>()!;
 }
 
 // Custom Theme Extension
