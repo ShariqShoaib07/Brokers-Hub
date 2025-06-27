@@ -15,6 +15,8 @@ import 'package:brokers_hub/screens/admin/manage_users_screen.dart';
 import 'package:brokers_hub/screens/admin/lead_approval_screen.dart';
 import 'package:brokers_hub/screens/admin/payout_requests_screen.dart';
 import 'package:brokers_hub/screens/admin/reports_screen.dart';
+import 'package:brokers_hub/screens/common/wallet_screen.dart'; // Added wallet screen import
+import 'package:brokers_hub/screens/common/referral_screen.dart';
 
 class AppRoutes {
   // Static route names
@@ -34,6 +36,8 @@ class AppRoutes {
   static const String leadApproval = '/lead-approval';
   static const String payoutRequests = '/payout-requests';
   static const String reports = '/reports';
+  static const String wallet = '/wallet'; // Added wallet route
+  static const String referral = '/referral'; // Added referral route
 
   // Helper to get all routes (might be useful for route guards)
   static List<String> get routes => [
@@ -53,6 +57,8 @@ class AppRoutes {
     payoutRequests,
     reports,
     commission,
+    wallet,
+    referral,
   ];
 }
 
@@ -91,6 +97,10 @@ class RouteGenerator {
         return MaterialPageRoute(builder: (_) => const PayoutRequestsScreen());
       case AppRoutes.reports:
         return MaterialPageRoute(builder: (_) => const ReportScreen());
+      case AppRoutes.wallet:
+        return MaterialPageRoute(builder: (_) => const WalletScreen());
+      case AppRoutes.referral:
+        return MaterialPageRoute(builder: (_) => const ReferralScreen());
       default:
         return _errorRoute(settings.name);
     }
