@@ -5,8 +5,10 @@ import 'package:brokers_hub/screens/auth/onboarding_screen.dart';
 import 'package:brokers_hub/screens/common/splash_screen.dart';
 import 'package:brokers_hub/screens/auth/kyc_verification_screen.dart';
 import 'package:brokers_hub/screens/auth/role_selection_screen.dart';
-import 'package:brokers_hub/screens/lead_provider/L_dashboard_screen.dart';
-import 'package:brokers_hub/screens/service_provider/S_dashboard_screen.dart';
+import 'package:brokers_hub/screens/lead_provider/L_dashboard_screen.dart'; // Fixed import name
+import 'package:brokers_hub/screens/service_provider/s_dashboard_screen.dart'; // Fixed import name
+import 'package:brokers_hub/screens/lead_provider/commission_screen.dart';
+import 'route_names.dart';
 
 class AppRoutes {
   // Static route names
@@ -18,6 +20,7 @@ class AppRoutes {
   static const String roleSelection = '/role-selection';
   static const String leadDashboard = '/lead-dashboard';
   static const String serviceDashboard = '/service-dashboard';
+  static const String commission = '/commission'; // Added commission route
 
   // Helper to get all routes (might be useful for route guards)
   static List<String> get routes => [
@@ -29,6 +32,7 @@ class AppRoutes {
     roleSelection,
     leadDashboard,
     serviceDashboard,
+    commission, // Added to routes list
   ];
 }
 
@@ -47,10 +51,12 @@ class RouteGenerator {
         return MaterialPageRoute(builder: (_) => const KYCVerificationScreen());
       case AppRoutes.roleSelection:
         return MaterialPageRoute(builder: (_) => const RoleSelectionScreen());
+      case AppRoutes.commission:
+        return MaterialPageRoute(builder: (_) => CommissionScreen()); // Removed const
       case AppRoutes.leadDashboard:
-        return MaterialPageRoute(builder: (_) => const LDashboardScreen()); // Fixed casing
+        return MaterialPageRoute(builder: (_) => const LeadDashboardScreen());
       case AppRoutes.serviceDashboard:
-        return MaterialPageRoute(builder: (_) => const SDashboardScreen()); // Fixed casing
+        return MaterialPageRoute(builder: (_) => const SDashboardScreen());
       default:
         return _errorRoute(settings.name);
     }
