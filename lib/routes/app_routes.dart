@@ -10,6 +10,11 @@ import 'package:brokers_hub/screens/service_provider/s_dashboard_screen.dart'; /
 import 'package:brokers_hub/screens/lead_provider/commission_screen.dart';
 import 'package:brokers_hub/screens/service_provider/my_deals_screen.dart';
 import 'package:brokers_hub/screens/service_provider/rating_tracker_screen.dart';
+import 'package:brokers_hub/screens/admin/admin_dashboard.dart';
+import 'package:brokers_hub/screens/admin/manage_users_screen.dart';
+import 'package:brokers_hub/screens/admin/lead_approval_screen.dart';
+import 'package:brokers_hub/screens/admin/payout_requests_screen.dart';
+import 'package:brokers_hub/screens/admin/reports_screen.dart';
 
 class AppRoutes {
   // Static route names
@@ -24,6 +29,11 @@ class AppRoutes {
   static const String commission = '/commission'; // Added commission route
   static const String myDeals = '/my-deals';
   static const String ratingTracker = '/rating-tracker';
+  static const String adminDashboard = '/admin-dashboard';
+  static const String manageUsers = '/manage-users';
+  static const String leadApproval = '/lead-approval';
+  static const String payoutRequests = '/payout-requests';
+  static const String reports = '/reports';
 
   // Helper to get all routes (might be useful for route guards)
   static List<String> get routes => [
@@ -37,7 +47,12 @@ class AppRoutes {
     serviceDashboard,
     myDeals,
     ratingTracker,
-    commission, // Added to routes list
+    adminDashboard,
+    manageUsers,
+    leadApproval,
+    payoutRequests,
+    reports,
+    commission,
   ];
 }
 
@@ -66,6 +81,16 @@ class RouteGenerator {
         return MaterialPageRoute(builder: (_) => const MyDealsScreen());
       case AppRoutes.ratingTracker:
         return MaterialPageRoute(builder: (_) => RatingTrackerScreen());
+      case AppRoutes.adminDashboard:
+        return MaterialPageRoute(builder: (_) => const AdminDashboard());
+      case AppRoutes.manageUsers:
+        return MaterialPageRoute(builder: (_) => const ManageUsersScreen());
+      case AppRoutes.leadApproval:
+        return MaterialPageRoute(builder: (_) => const LeadApprovalScreen());
+      case AppRoutes.payoutRequests:
+        return MaterialPageRoute(builder: (_) => const PayoutRequestsScreen());
+      case AppRoutes.reports:
+        return MaterialPageRoute(builder: (_) => const ReportScreen());
       default:
         return _errorRoute(settings.name);
     }

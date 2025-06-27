@@ -59,6 +59,12 @@ class AppColors {
   static const Color neonEffect = accentNeonPurple;
   static const Color glowEffect = Color(0x55BC13FE); // 33% opacity
 
+  static const Color chatBubbleSender = Color(0xFFDCF8C6); // Light green (like WhatsApp)
+  static const Color chatBubbleReceiver = Color(0xFFFFFFFF); // White
+  static const Color chatBubbleSenderText = Color(0xFF000000); // Black
+  static const Color chatBubbleReceiverText = Color(0xFF000000); // Black
+  static const Color chatTimeText = Color(0xFF777777); // Grey
+
   // Gradient colors
   static const Gradient primaryGradient = LinearGradient(
     colors: [primaryBlue, secondaryPurple],

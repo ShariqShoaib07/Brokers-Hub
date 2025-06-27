@@ -7,6 +7,8 @@ class CustomCard extends StatelessWidget {
   final String subtitle;
   final String badgeText;
   final VoidCallback onTap;
+  final Widget? trailing;
+  final Widget? child;
 
   const CustomCard({
     super.key,
@@ -14,6 +16,8 @@ class CustomCard extends StatelessWidget {
     required this.subtitle,
     required this.badgeText,
     required this.onTap,
+    this.trailing,
+    this.child,
   });
 
   @override
@@ -44,6 +48,7 @@ class CustomCard extends StatelessWidget {
                     ),
                   ),
                   const SizedBox(width: 8),
+                  if (trailing != null) trailing!,
                   _StatusBadge(text: badgeText),
                 ],
               ),
@@ -77,13 +82,21 @@ class _StatusBadge extends StatelessWidget {
         backgroundColor = AppColors.warningYellow.withOpacity(0.2);
         textColor = AppColors.warningYellow;
         break;
-      case 'matched':
+      case 'approved':
         backgroundColor = AppColors.successGreen.withOpacity(0.2);
         textColor = AppColors.successGreen;
         break;
-      case 'finalized':
-        backgroundColor = AppColors.primaryBlue.withOpacity(0.2);
-        textColor = AppColors.primaryBlue;
+      case 'rejected':
+        backgroundColor = AppColors.errorRed.withOpacity(0.2);
+        textColor = AppColors.errorRed;
+        break;
+      case 'active':
+        backgroundColor = AppColors.successGreen.withOpacity(0.2);
+        textColor = AppColors.successGreen;
+        break;
+      case 'suspended':
+        backgroundColor = AppColors.errorRed.withOpacity(0.2);
+        textColor = AppColors.errorRed;
         break;
       default:
         backgroundColor = Theme.of(context).colorScheme.surfaceVariant;
