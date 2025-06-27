@@ -1,8 +1,10 @@
 import 'package:flutter/foundation.dart';
 import '../models/lead_model.dart';
+import '../models/service_application_model.dart';
 
 class LeadProvider with ChangeNotifier {
   final List<LeadModel> _leads = [];
+  final List<ServiceApplicationModel> _applications = [];
 
   // Initialize with dummy data
   LeadProvider() {
@@ -47,10 +49,37 @@ class LeadProvider with ChangeNotifier {
         createdAt: DateTime.now().subtract(const Duration(days: 3)),
       ),
     ]);
+    _applications.addAll([
+      ServiceApplicationModel(
+        id: 'app1',
+        leadId: '1',
+        providerName: 'Construction Pro',
+        message: 'I can start immediately',
+        availability: 'Immediate',
+        appliedAt: DateTime.now().subtract(Duration(days: 2)),
+        status: 'in_progress',
+        rating: 4.5,
+        feedback: 'Great communication',
+      ),
+      ServiceApplicationModel(
+        id: 'app2',
+        leadId: '2',
+        providerName: 'Web Dev Team',
+        message: 'We specialize in e-commerce',
+        availability: 'Within 1 Week',
+        appliedAt: DateTime.now().subtract(Duration(days: 5)),
+        status: 'finalized',
+        rating: 5.0,
+        feedback: 'Excellent work!',
+      ),
+    ]);
   }
 
   // Getter for leads (returns a copy to prevent external modification)
   List<LeadModel> get leads => List.from(_leads);
+
+  // Getter for applications
+  List<ServiceApplicationModel> get applications => List.from(_applications);
 
   // Add a new lead
   void addLead(LeadModel newLead) {
@@ -65,6 +94,54 @@ class LeadProvider with ChangeNotifier {
       _leads[index] = _leads[index].copyWith(status: newStatus);
       notifyListeners();
     }
+  }
+
+  List<ServiceApplicationModel> get myDeals {
+    return _applications.where((app) =>
+        ['applied', 'in_progress', 'finalized'].contains(app.status)
+    ).toList();
+  }
+
+  // Apply to a lead
+  Future<void> applyToLead(String leadId, ServiceApplicationModel application) async {
+    // Simulate network delay
+    await Future.delayed(const Duration(seconds: 1));
+
+    // Add the application
+    _applications.add(application);
+
+    // Update lead status
+    final leadIndex = _leads.indexWhere((lead) => lead.id == leadId);
+    if (leadIndex != -1) {
+      _leads[leadIndex] = _leads[leadIndex].copyWith(status: 'in_progress');
+    }
+
+    notifyListeners();
+  }
+
+  // NEW: Add rating to finalized application
+  void addRating(String applicationId, double rating, String feedback) {
+    final index = _applications.indexWhere((app) => app.id == applicationId);
+    if (index != -1) {
+      _applications[index] = _applications[index].copyWith(
+        rating: rating,
+        feedback: feedback,
+        status: 'finalized',
+      );
+      notifyListeners();
+    }
+  }
+
+  // NEW: Get applications by provider
+  List<ServiceApplicationModel> getApplicationsByProvider(String providerName) {
+    return _applications.where(
+            (app) => app.providerName == providerName
+    ).toList();
+  }
+
+  // Get applications for a specific lead
+  List<ServiceApplicationModel> getApplicationsForLead(String leadId) {
+    return _applications.where((app) => app.leadId == leadId).toList();
   }
 
   // Optional: Get lead by ID

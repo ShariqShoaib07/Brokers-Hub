@@ -8,7 +8,8 @@ import 'package:brokers_hub/screens/auth/role_selection_screen.dart';
 import 'package:brokers_hub/screens/lead_provider/L_dashboard_screen.dart'; // Fixed import name
 import 'package:brokers_hub/screens/service_provider/s_dashboard_screen.dart'; // Fixed import name
 import 'package:brokers_hub/screens/lead_provider/commission_screen.dart';
-import 'route_names.dart';
+import 'package:brokers_hub/screens/service_provider/my_deals_screen.dart';
+import 'package:brokers_hub/screens/service_provider/rating_tracker_screen.dart';
 
 class AppRoutes {
   // Static route names
@@ -21,6 +22,8 @@ class AppRoutes {
   static const String leadDashboard = '/lead-dashboard';
   static const String serviceDashboard = '/service-dashboard';
   static const String commission = '/commission'; // Added commission route
+  static const String myDeals = '/my-deals';
+  static const String ratingTracker = '/rating-tracker';
 
   // Helper to get all routes (might be useful for route guards)
   static List<String> get routes => [
@@ -32,6 +35,8 @@ class AppRoutes {
     roleSelection,
     leadDashboard,
     serviceDashboard,
+    myDeals,
+    ratingTracker,
     commission, // Added to routes list
   ];
 }
@@ -57,6 +62,10 @@ class RouteGenerator {
         return MaterialPageRoute(builder: (_) => const LeadDashboardScreen());
       case AppRoutes.serviceDashboard:
         return MaterialPageRoute(builder: (_) => const SDashboardScreen());
+      case AppRoutes.myDeals:
+        return MaterialPageRoute(builder: (_) => const MyDealsScreen());
+      case AppRoutes.ratingTracker:
+        return MaterialPageRoute(builder: (_) => RatingTrackerScreen());
       default:
         return _errorRoute(settings.name);
     }
