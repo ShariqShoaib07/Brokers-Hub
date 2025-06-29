@@ -7,15 +7,6 @@ import 'package:brokers_hub/providers/lead_provider.dart';
 import 'package:brokers_hub/providers/theme_provider.dart';
 import 'package:brokers_hub/providers/wallet_provider.dart';
 import 'package:brokers_hub/routes/app_routes.dart';
-import 'package:brokers_hub/screens/auth/login_screen.dart';
-import 'package:brokers_hub/screens/auth/onboarding_screen.dart';
-import 'package:brokers_hub/screens/auth/register_screen.dart';
-import 'package:brokers_hub/screens/auth/role_selection_screen.dart';
-import 'package:brokers_hub/screens/auth/kyc_verification_screen.dart';
-import 'package:brokers_hub/screens/common/splash_screen.dart';
-import 'package:brokers_hub/screens/lead_provider/L_dashboard_screen.dart';
-import 'package:brokers_hub/screens/service_provider/S_dashboard_screen.dart';
-// Import all other screens as needed...
 
 void main() {
   runApp(
@@ -50,19 +41,7 @@ class MyApp extends StatelessWidget {
 
       // Navigation Configuration
       initialRoute: AppRoutes.splash,
-      routes: {
-        AppRoutes.splash: (context) => const SplashScreen(),
-        AppRoutes.onboarding: (context) => const OnboardingScreen(),
-        AppRoutes.login: (context) => const LoginScreen(),
-        AppRoutes.register: (context) => const RegisterScreen(),
-        AppRoutes.roleSelection: (context) => const RoleSelectionScreen(),
-        AppRoutes.kycVerification: (context) => const KYCVerificationScreen(),
-        AppRoutes.leadDashboard: (context) => const LeadDashboardScreen(),
-        AppRoutes.serviceDashboard: (context) => const SDashboardScreen(),
-        // Add all other routes here...
-      },
-
-      // Fallback for unknown routes
+      onGenerateRoute: RouteGenerator.generateRoute, // Use RouteGenerator for all routes
       onUnknownRoute: (settings) => MaterialPageRoute(
         builder: (context) => Scaffold(
           body: Center(
