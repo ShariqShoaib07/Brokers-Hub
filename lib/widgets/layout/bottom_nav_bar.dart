@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:brokers_hub/providers/auth_provider.dart';
-import 'package:brokers_hub/routes/route_names.dart';
+import 'package:brokers_hub/routes/app_routes.dart';
 
 class BottomNavBar extends StatefulWidget {
   final int selectedIndex;
@@ -35,17 +35,17 @@ class _BottomNavBarState extends State<BottomNavBar> {
       case 0: // Dashboard
         Navigator.pushReplacementNamed(
           context,
-          isLeadProvider ? RouteNames.leadDashboard : RouteNames.serviceDashboard,
+          isLeadProvider ? AppRoutes.leadDashboard : AppRoutes.serviceDashboard,
         );
         break;
       case 1: // Leads
         Navigator.pushReplacementNamed(
           context,
-          isLeadProvider ? RouteNames.myLeads : RouteNames.availableLeads,
+          isLeadProvider ? AppRoutes.myLeads : AppRoutes.availableLeads,
         );
         break;
       case 2: // Profile
-        Navigator.pushReplacementNamed(context, RouteNames.profile);
+        Navigator.pushReplacementNamed(context, AppRoutes.profile);
         break;
     }
   }

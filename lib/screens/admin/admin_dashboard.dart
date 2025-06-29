@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:brokers_hub/core/constants/app_colors.dart';
 import 'package:brokers_hub/core/constants/app_text_styles.dart';
 import 'package:brokers_hub/widgets/common/custom_button.dart';
-import 'package:brokers_hub/routes/route_names.dart';
+import 'package:brokers_hub/routes/app_routes.dart';
 
 class AdminDashboard extends StatelessWidget {
   const AdminDashboard({super.key});
@@ -138,28 +138,28 @@ class AdminDashboard extends StatelessWidget {
     return Column(
       children: [
         CustomButton(
-          onPressed: () => Navigator.pushNamed(context, RouteNames.manageUsers),
+          onPressed: () => Navigator.pushNamed(context, AppRoutes.manageUsers),
           label: 'Manage Users',
           backgroundColor: AppColors.primaryBlue,
           isFullWidth: true,
         ),
         const SizedBox(height: 12),
         CustomButton(
-          onPressed: () => Navigator.pushNamed(context, RouteNames.leadApproval),
+          onPressed: () => Navigator.pushNamed(context, AppRoutes.leadApproval),
           label: 'Lead Approval Queue',
           backgroundColor: AppColors.secondaryPurple,
           isFullWidth: true,
         ),
         const SizedBox(height: 12),
         CustomButton(
-          onPressed: () => Navigator.pushNamed(context, RouteNames.payoutRequests),
+          onPressed: () => Navigator.pushNamed(context, AppRoutes.payoutRequests),
           label: 'Payout Requests',
           backgroundColor: AppColors.successGreen,
           isFullWidth: true,
         ),
         const SizedBox(height: 12),
         CustomButton(
-          onPressed: () => Navigator.pushNamed(context, RouteNames.reports),
+          onPressed: () => Navigator.pushNamed(context, AppRoutes.reports),
           label: 'View Reports',
           backgroundColor: AppColors.warningYellow,
           textColor: Colors.black,

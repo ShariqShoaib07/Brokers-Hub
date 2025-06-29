@@ -15,8 +15,18 @@ import 'package:brokers_hub/screens/admin/manage_users_screen.dart';
 import 'package:brokers_hub/screens/admin/lead_approval_screen.dart';
 import 'package:brokers_hub/screens/admin/payout_requests_screen.dart';
 import 'package:brokers_hub/screens/admin/reports_screen.dart';
-import 'package:brokers_hub/screens/common/wallet_screen.dart'; // Added wallet screen import
+import 'package:brokers_hub/screens/common/wallet_screen.dart';
 import 'package:brokers_hub/screens/common/referral_screen.dart';
+import 'package:brokers_hub/screens/lead_provider/post_lead_screen.dart';
+import 'package:brokers_hub/screens/lead_provider/my_leads_screen.dart';
+import 'package:brokers_hub/screens/lead_provider/lead_detail_screen.dart';
+import 'package:brokers_hub/screens/service_provider/available_leads_screen.dart';
+import 'package:brokers_hub/screens/service_provider/lead_application_screen.dart';
+import 'package:brokers_hub/screens/service_provider/earnings_screen.dart';
+import 'package:brokers_hub/screens/common/chat_screen.dart';
+import 'package:brokers_hub/screens/common/settings_screen.dart';
+import 'package:brokers_hub/models/lead_model.dart';
+
 
 class AppRoutes {
   // Static route names
@@ -38,6 +48,17 @@ class AppRoutes {
   static const String reports = '/reports';
   static const String wallet = '/wallet'; // Added wallet route
   static const String referral = '/referral'; // Added referral route
+  static const String profile = '/profile';
+  static const String chat = '/chat';
+  static const String settings = '/settings';
+  static const String availableLeads = '/available-leads';
+  static const String leadApplication = '/lead-application';
+  static const String earnings = '/earnings';
+  static const String postLead = '/post-lead';
+  static const String myLeads = '/my-leads';
+  static const String leadDetail = '/lead-detail';
+
+
 
   // Helper to get all routes (might be useful for route guards)
   static List<String> get routes => [
@@ -59,6 +80,15 @@ class AppRoutes {
     commission,
     wallet,
     referral,
+    postLead,
+    myLeads,
+    leadDetail,
+    availableLeads,
+    leadApplication,
+    earnings,
+    profile,
+    chat,
+    settings,
   ];
 }
 
@@ -101,6 +131,39 @@ class RouteGenerator {
         return MaterialPageRoute(builder: (_) => const WalletScreen());
       case AppRoutes.referral:
         return MaterialPageRoute(builder: (_) => const ReferralScreen());
+      case AppRoutes.postLead:
+        return MaterialPageRoute(builder: (_) => const PostLeadScreen());
+      case AppRoutes.myLeads:
+        return MaterialPageRoute(builder: (_) => const MyLeadsScreen());
+      case AppRoutes.leadDetail:
+        final lead = settings.arguments as LeadModel;
+        return MaterialPageRoute(
+          builder: (_) => LeadDetailScreen(lead: lead),
+        );
+      case AppRoutes.availableLeads:
+        return MaterialPageRoute(builder: (_) => const AvailableLeadsScreen());
+      case AppRoutes.leadApplication:
+        final lead = settings.arguments as LeadModel;
+        return MaterialPageRoute(
+          builder: (_) => LeadApplicationScreen(lead: lead),
+        );
+      case AppRoutes.earnings:
+        return MaterialPageRoute(builder: (_) => EarningsScreen());
+
+    // Common Routes
+      case AppRoutes.profile:
+        //return MaterialPageRoute(builder: (_) => const ProfileScreen());
+      case AppRoutes.chat:
+      final args = settings.arguments as Map<String, dynamic>;
+      return MaterialPageRoute(
+        builder: (_) => ChatScreen(
+          conversationId: args['conversationId'],
+          currentUser: args['currentUser'],
+        ),
+      );
+      case AppRoutes.settings:
+        return MaterialPageRoute(builder: (_) => const SettingsScreen());
+
       default:
         return _errorRoute(settings.name);
     }
