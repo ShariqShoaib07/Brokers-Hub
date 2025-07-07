@@ -33,21 +33,14 @@ class _LoginScreenState extends State<LoginScreen> {
     setState(() => _isLoading = true);
 
     try {
-      await Provider.of<AuthProvider>(context, listen: false).login(
+      final authProvider = Provider.of<AuthProvider>(context, listen: false);
+      await authProvider.login(
         _emailController.text.trim(),
         _passwordController.text.trim(),
       );
 
       if (!mounted) return;
-
-      // Check if user has selected role (in real app, this would come from user data)
-      final hasSelectedRole = true; // Mock value - replace with actual check
-
-      if (hasSelectedRole) {
-        Navigator.pushReplacementNamed(context, AppRoutes.leadDashboard); // Or service dashboard based on role
-      } else {
-        Navigator.pushReplacementNamed(context, AppRoutes.roleSelection);
-      }
+      authProvider.handlePostLoginNavigation(context);
     } catch (e) {
       if (!mounted) return;
       ScaffoldMessenger.of(context).showSnackBar(
@@ -61,7 +54,6 @@ class _LoginScreenState extends State<LoginScreen> {
   }
 
   Future<void> _handleGoogleSignIn() async {
-    // Fake Google sign-in logic
     setState(() => _isLoading = true);
     await Future.delayed(const Duration(seconds: 1));
     if (!mounted) return;
@@ -130,11 +122,11 @@ class _LoginScreenState extends State<LoginScreen> {
                 ),
                 const SizedBox(height: 8),
 
-                // Forgot Password (optional)
+                // Forgot Password
                 Align(
                   alignment: Alignment.centerRight,
                   child: TextButton(
-                    onPressed: () {}, // Would navigate to forgot password screen
+                    onPressed: () {},
                     child: Text(
                       'Forgot Password?',
                       style: AppTextStyles.bodyMedium(context).copyWith(
@@ -185,11 +177,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      Image.asset(
-                        'assets/images/google_logo.png',
-                        width: 24,
-                        height: 24,
-                      ),
+                      Icon(Icons.g_mobiledata, size: 24),
                       const SizedBox(width: 8),
                       Text('Continue with Google'),
                     ],
@@ -219,6 +207,24 @@ class _LoginScreenState extends State<LoginScreen> {
                       ),
                     ),
                   ),
+                ),
+
+                // Test Credentials Hint
+                const SizedBox(height: 40),
+                Text(
+                  'Test Credentials:',
+                  style: AppTextStyles.bodyMedium(context).copyWith(
+                    color: Colors.grey,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+                const SizedBox(height: 8),
+                Text(
+                      'admin@example.com (Admin)\n'
+                      'service@example.com (Service Provider)\n'
+                      'lead@example.com (Lead Provider)\n'
+                      'Password: any 6+ characters',
+                  style: AppTextStyles.bodySmall(context).copyWith(color: Colors.grey),
                 ),
               ],
             ),

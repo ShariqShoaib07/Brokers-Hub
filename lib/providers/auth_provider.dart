@@ -22,9 +22,16 @@ class AuthProvider with ChangeNotifier {
     // Simulate API delay
     await Future.delayed(const Duration(seconds: 2));
 
-    // For now, just return the dummy user if email contains "@"
+    // For testing different roles
     if (email.contains('@')) {
-      _user = UserModel.dummyUser.copyWith(email: email);
+      final role = email.contains('admin@') ? 'admin' :
+      email.contains('service@') ? 'service_provider' :
+      'lead_provider';
+
+      _user = UserModel.dummyUser.copyWith(
+        email: email,
+        role: role,
+      );
       _error = null;
     } else {
       _error = 'Invalid email or password';
@@ -77,21 +84,14 @@ class AuthProvider with ChangeNotifier {
     if (_user == null) return;
 
     try {
-      // 1. First upload image if needed
-      // final photoUrl = await _uploadImage(imagePath);
-
-      // 2. Update local user
       _user = _user!.copyWith(
         cnic: cnic,
         address: address,
-        profilePhoto: imagePath, // or use photoUrl if uploaded
+        profilePhoto: imagePath,
       );
       notifyListeners();
 
-      // 3. Save to backend
-      // await _apiService.updateUserKyc(_user!);
     } catch (e) {
-      // Re-throw so UI can handle it
       throw Exception('Failed to complete KYC: $e');
     }
   }
@@ -113,7 +113,6 @@ class AuthProvider with ChangeNotifier {
   void handlePostLoginNavigation(BuildContext context) {
     if (_user == null) return;
 
-    // Clear any existing routes and navigate to the appropriate dashboard
     Navigator.of(context).pushNamedAndRemoveUntil(
       _getDashboardRoute(),
           (route) => false,
