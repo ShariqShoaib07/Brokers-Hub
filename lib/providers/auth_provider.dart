@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import '../models/user_model.dart';
+import '../routes/app_routes.dart';
 
 class AuthProvider with ChangeNotifier {
   UserModel? _user;
@@ -106,5 +107,29 @@ class AuthProvider with ChangeNotifier {
   void clearError() {
     _error = null;
     notifyListeners();
+  }
+
+  // Handle navigation after login
+  void handlePostLoginNavigation(BuildContext context) {
+    if (_user == null) return;
+
+    // Clear any existing routes and navigate to the appropriate dashboard
+    Navigator.of(context).pushNamedAndRemoveUntil(
+      _getDashboardRoute(),
+          (route) => false,
+    );
+  }
+
+  // Helper method to get the correct dashboard route based on user role
+  String _getDashboardRoute() {
+    switch (_user?.role) {
+      case 'admin':
+        return AppRoutes.adminDashboard;
+      case 'service_provider':
+        return AppRoutes.serviceDashboard;
+      case 'lead_provider':
+      default:
+        return AppRoutes.leadDashboard;
+    }
   }
 }
